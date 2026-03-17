@@ -17,7 +17,7 @@ This project combines the **accuracy of sparse LiDAR** with the **density of mon
 <img width="1451" height="936" alt="image" src="https://github.com/user-attachments/assets/e749048c-5f46-4771-b955-4b5dca536a7c" />
 
 
-*Click the link to download the video (playback depends on your browser).*
+
 
 - **LiDAR projection** onto the image plane using KITTI calibration matrices.
 - **Sparse-to-dense interpolation** of LiDAR depth via nearest‑neighbor search.

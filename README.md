@@ -77,10 +77,10 @@ Recent research (e.g., **CMT‑Depth**, **GuideDepth**) shows that learning‑ba
 
 ## 📈 Results
 
-For each frame, the pipeline generates a six‑panel benchmark image:
+<img width="1451" height="936" alt="image" src="https://github.com/user-attachments/assets/c1c483a1-67a7-447e-8924-b53c551bacf9" />
 
-![Benchmark sample](assets/frame_000000_benchmark.png)  
-*Example benchmark for frame 000000. (Place your image in `assets/`)*
+
+
 
 - (a) Camera image (reference)
 - (b) Sparse LiDAR depth (accurate but sparse)

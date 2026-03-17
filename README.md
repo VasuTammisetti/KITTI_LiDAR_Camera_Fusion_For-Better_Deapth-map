@@ -14,9 +14,6 @@ This project combines the **accuracy of sparse LiDAR** with the **density of mon
 **Animated GIF** (loops continuously)  
 ![Fusion Demo GIF](https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For_Better_Depth-map/raw/main/fusion_demo%20(1).gif)
 
-**Full video on YouTube**  
-[![Fusion Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/YOUR_VIDEO_ID)  
-*Click the thumbnail to watch the video on YouTube (supports playback controls and looping).*
 ## ✨ Key Features
 
 - **LiDAR projection** onto the image plane using KITTI calibration matrices.

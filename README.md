@@ -1,17 +1,32 @@
-# 🚗 LiDAR-Camera Late Fusion for Depth Estimation on KITTI
+# KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/your-username/your-repo-name/blob/main/notebooks/SensorFusion_KITTI.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map/blob/main/Camera_LiDAR_Fusion.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-**A clean implementation of late sensor fusion** combining sparse LiDAR points with dense monocular depth (MiDaS) to produce accurate, metric depth maps on the KITTI dataset. This project demonstrates how fusion overcomes the limitations of each individual sensor: LiDAR provides precise but sparse measurements, while monocular depth is dense but scale‑ambiguous. By aligning and averaging both sources, we obtain a depth map that is both **dense** and **metrically accurate** – essential for autonomous driving, robotics, and AR/VR applications.
+**Late sensor fusion of LiDAR and camera data for dense metric depth estimation on KITTI.**  
+This project combines the **accuracy of sparse LiDAR** with the **density of monocular depth (MiDaS)** via median scaling and averaging, producing a depth map that is both **dense** and **metrically accurate** – a critical capability for autonomous driving, robotics, and augmented reality.
 
 ---
 
-## ✨ Features
+## 🎥 Demo
+
+Watch the fusion pipeline in action on a sequence of KITTI frames:
+
+![Fusion Demo Video]()  
+*Side‑by‑side comparison: camera image (left) and fused depth map (right). (Place your MP4 in `assets/`)*
+
+Or view the animated GIF:
+
+![Fusion Demo GIF](assets/fusion_demo.gif)  
+*GIF version of the same sequence. (Place your GIF in `assets/`)*
+
+---
+
+## ✨ Key Features
 
 - **LiDAR projection** onto the image plane using KITTI calibration matrices.
-- **Sparse-to-dense interpolation** of LiDAR depth via nearest neighbors.
+- **Sparse-to-dense interpolation** of LiDAR depth via nearest‑neighbor search.
 - **Monocular depth estimation** with a state‑of‑the‑art transformer (MiDaS DPT‑Large).
 - **Scale alignment** by matching the median of monocular depth to LiDAR depth.
 - **Late fusion** by pixel‑wise averaging of scaled monocular and dense LiDAR depths.
@@ -20,36 +35,59 @@
 
 ---
 
-## 📂 Dataset
+## 🧠 How It Works (Methodology)
 
-We use the **KITTI Object Detection** training set (first 100 samples). The data is organized as follows:
-
-data_object_image_2/training/ # .png images
-data_object_velodyne/training/ # .bin point clouds
-data_object_calib/training/ # .txt calibration files
-
-
-> **Note:** The dataset is **not** included in this repository due to size constraints. Follow the instructions below to download and place it correctly.
-
----
-
-## 🧠 Methodology (Late Fusion)
+The pipeline follows a **late fusion** approach:
 
 1. **Project LiDAR points** to image coordinates using calibration.
-2. **Create sparse depth map** only at projected pixel locations.
+2. **Create a sparse depth map** only at projected pixel locations.
 3. **Interpolate** to obtain a dense LiDAR depth map.
 4. **Estimate monocular depth** with MiDaS (raw, scale‑ambiguous).
-5. **Scale** the monocular depth so its median matches the LiDAR median (metric scale).
+5. **Scale** the monocular depth so its median matches the LiDAR median – this gives it a metric scale.
 6. **Fuse** by averaging the scaled monocular and dense LiDAR depth maps.
 
-All metric depth maps are displayed with the same color scale (0–50 m) for direct comparison.
+All metric depth maps are displayed with the same color scale (0–50 m) for direct visual comparison.
 
 ---
 
-## 📊 Results
+## 📊 Comparison to Conventional Methods
 
-### Six‑Panel Benchmark
-For each frame, the pipeline generates a figure showing:
+| Method | Strengths | Weaknesses |
+|--------|-----------|------------|
+| **LiDAR only** | Accurate metric depth | Extremely sparse, gaps between scan lines |
+| **Monocular depth (MiDaS)** | Dense, preserves object boundaries | Scale‑ambiguous, may have local errors |
+| **Stereo depth** | Dense, metric if calibrated | Requires two cameras, calibration, higher computational cost |
+| **MiDAS fusion** | ✅ **Dense + metric** – combines the best of both sensors | Requires calibration and synchronized data |
+
+Unlike stereo, our method needs only one camera. Unlike pure monocular depth, it provides absolute scale. Compared to LiDAR alone, it fills all gaps and preserves edges.
+
+---
+
+## 🚀 Applications
+
+- **Autonomous driving**: Dense metric depth for obstacle detection, free space estimation, and path planning.
+- **Robotics**: Grasping, navigation, and SLAM in unstructured environments.
+- **Augmented / Virtual Reality**: Occlusion handling, realistic placement of virtual objects.
+- **Surveillance**: People counting and tracking with accurate 3D positions.
+- **Industrial automation**: Quality control and dimension measurement.
+
+---
+
+## 🏆 State‑of‑the‑Art Context
+
+Monocular depth estimation has advanced rapidly with vision transformers (e.g., **MiDaS v3.1**, **DPT**). However, single‑image methods cannot recover absolute scale without additional cues. Fusing with even sparse LiDAR provides that scale while retaining the dense prediction capability. This late‑fusion approach is lightweight, requires no retraining, and can be applied to any camera–LiDAR setup with known calibration.
+
+Recent research (e.g., **CMT‑Depth**, **GuideDepth**) shows that learning‑based fusion can achieve even higher accuracy, but our simple median‑scaling baseline already demonstrates the core benefit of fusion and is easy to implement.
+
+---
+
+## 📈 Results
+
+For each frame, the pipeline generates a six‑panel benchmark image:
+
+![Benchmark sample](assets/frame_000000_benchmark.png)  
+*Example benchmark for frame 000000. (Place your image in `assets/`)*
+
 - (a) Camera image (reference)
 - (b) Sparse LiDAR depth (accurate but sparse)
 - (c) Dense LiDAR depth (interpolated, fills gaps but may blur edges)
@@ -57,26 +95,19 @@ For each frame, the pipeline generates a figure showing:
 - (e) Scaled monocular depth (now metric, preserves edges)
 - (f) **Fused depth** ✅ – the best of both worlds: accurate + dense
 
-![Benchmark sample](assets/frame_000000_benchmark.png)  
-*Example benchmark image for frame 000000. (Place your actual image in `assets/`)*
-
-### Animated GIF (Camera + Fused Depth)
-The side‑by‑side GIF shows the camera image (left) and the fused depth map (right) over 10 consecutive frames, illustrating temporal consistency.
-
-![Fusion demo GIF](assets/fusion_demo.gif)  
-*GIF of fused depth over 10 frames. (Place your GIF in `assets/`)*
-
-### Video (MP4)
-A higher‑quality MP4 version is also available for embedding or presentations.
-
-[![Fusion demo video](assets/video_thumbnail.png)](assets/fusion_demo.mp4)  
-*Click the thumbnail to download the MP4 video. (Place your video in `assets/`)*
-
 ---
 
-## ⚙️ Installation & Usage
+## 🛠️ Getting Started
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map.git
-cd KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map
+### Prerequisites
+
+- Python 3.8 or higher
+- A machine with a GPU (optional, but recommended for faster inference)
+- The **KITTI Object Detection** dataset (training split)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map.git
+   cd KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map

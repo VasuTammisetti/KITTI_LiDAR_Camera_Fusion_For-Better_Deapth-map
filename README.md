@@ -9,7 +9,7 @@ This project combines the **accuracy of sparse LiDAR** with the **density of mon
 
 ---
 
-**Animated GIF**  
+**Demo**  
 [![Fusion Demo GIF](https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For_Better_Depth-map/raw/main/fusion_demo%20(1).gif)
 ](https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For_Better_Depth-map/raw/refs/heads/main/fusion_demo%20(1).gif)
  <img width="767" height="490" alt="image" src="https://github.com/user-attachments/assets/034e5c2c-eb8f-4520-aba0-de6b78b3cc97" />

@@ -103,5 +103,5 @@ Recent research (e.g., **CMT‑Depth**, **GuideDepth**) shows that learning‑ba
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map.git
-   cd KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map
+   git clone https://github.com/VasuTammisetti/LiDAR_Camera-MiDAS-_Fusion_For-Better_Deapth-Map.git
+   cd LiDAR_Camera-MiDAS-_Fusion_For-Better_Deapth-Map

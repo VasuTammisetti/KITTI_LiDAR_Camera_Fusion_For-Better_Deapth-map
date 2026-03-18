@@ -1,4 +1,4 @@
-# KITTI_LiDAR_Camera (MiDAS)_Fusion_For-Better_Deapth-map
+# LiDAR_Camera (MiDAS)_Fusion_For-Better_Deapth-map
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VasuTammisetti/KITTI_LiDAR_Camera_Fusion_For-Better_Deapth-map/blob/main/Camera_LiDAR_Fusion.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
